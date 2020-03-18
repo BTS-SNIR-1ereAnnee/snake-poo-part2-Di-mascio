@@ -23,20 +23,18 @@ int kbhit(void)    /* Cette fonction retourne si une touche est appuyé par l'ut
 {
     int ch, r;
 
-
     nodelay(stdscr, TRUE);
 
-
-
     ch = getch();
-    if( ch == ERR)
-            r = FALSE;
-    else
-    {
-            r = TRUE;
-            ungetch(ch);
-    }
 
+    if( ch == ERR)
+    {
+        r = FALSE;
+    }else
+    {
+        r = TRUE;
+        ungetch(ch);
+    }
 
     echo();
     nodelay(stdscr, FALSE);
@@ -61,8 +59,8 @@ int main()
 	noecho();
 	while (true)
 	{
-
-		if(kbhit()) {
+		if(kbhit()) 
+		{
 			switch (getch()){
 				case 259:
 					derniereDir = TOUCHE_KEY_UP;
@@ -82,15 +80,12 @@ int main()
 					break;
 			}
 
-
-
 		}else{ //move left
 		    serpent.move (derniereDir);
 
 		}
 		serpent.affichSerpent();
         usleep (150000);
-
 	}
     //getchar();
     fenetre->kill();

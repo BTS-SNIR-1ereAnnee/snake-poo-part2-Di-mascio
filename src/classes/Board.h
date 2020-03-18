@@ -14,13 +14,20 @@ class Point;
 class Board
 {
 public:
+    
     static Board *getInstance ();
     static void kill ();
     void dessinerPoint(Point &p);
     void effacerPoint(Point &p);
+    int getSizeX();
+    int getSizeX();
+
 private:
+    
     static Board *_singleton;
     WINDOW *m_boite;
+    int m_sizeX;
+    int m_sizeY;
     Board();
     ~Board();
     void dessinerPlateau();

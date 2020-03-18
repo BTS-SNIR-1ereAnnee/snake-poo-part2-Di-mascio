@@ -7,61 +7,76 @@ using namespace std;
 // Initialisation du singleton à NULL
 Board *Board::_singleton = NULL;
 
+Board::Board()
+{
+    m_sizeX = 30;
+    m_sizeY = 20;
+}
 
 Board *Board::getInstance ()
+{
+  if (NULL == _singleton)
   {
-    if (NULL == _singleton)
-      {
-        _singleton =  new Board;
-      }
-
-    return _singleton;
+      _singleton =  new Board;
   }
 
-  void Board::kill ()
+  return _singleton;
+}
+
+void Board::kill ()
+{
+  if (NULL != _singleton)
   {
-    if (NULL != _singleton)
-    {
-        delete _singleton;
-        _singleton = NULL;
-      }
+    delete _singleton;
+    _singleton = NULL;
   }
+}
 
 
 Board::Board()
 {
-    initscr();
-    clear();
+  initscr();
+  clear();
 
-    this->dessinerPlateau();
+  this->dessinerPlateau();
 }
 
 Board::~Board()
 {
-    endwin();//RAZ du curseur
-    cout<<"Destruction du plateau"<<endl;
+  endwin();//RAZ du curseur
+  cout<<"Destruction du plateau"<<endl;
 }
 
 void Board::dessinerPlateau()
 {
-    this->m_boite = subwin(stdscr, 20, 30, 0, 0);
+  this->m_boite = subwin(stdscr, 20, 30, 0, 0);
 
-    box(this->m_boite, ACS_VLINE, ACS_HLINE); // ACS_VLINE et ACS_HLINE sont des constantes qui génèrent des bordures par défaut
-    wrefresh(m_boite);
+  box(this->m_boite, ACS_VLINE, ACS_HLINE); // ACS_VLINE et ACS_HLINE sont des constantes qui génèrent des bordures par défaut
+  wrefresh(m_boite);
 }
 
 
-void Board::dessinerPoint(Point &p){
-    wmove(m_boite, p.getY(), p.getX());
-    waddch(m_boite,'*');
-    wrefresh(m_boite);
+void Board::dessinerPoint(Point &p)
+{
+  wmove(m_boite, p.getY(), p.getX());
+  waddch(m_boite,'*');
+  wrefresh(m_boite);
 
 }
 
-void Board::effacerPoint(Point &p){
-    wmove(m_boite, p.getY(), p.getX());
-    waddch(m_boite,' ');
-    wrefresh(m_boite);
-
+void Board::effacerPoint(Point &p)
+{
+  wmove(m_boite, p.getY(), p.getX());
+  waddch(m_boite,' ');
+  wrefresh(m_boite);
 }
 
+int Board::getSizeX()
+{
+  return m_sizeX;
+}
+
+intBoard::getSizeY()
+{
+  return m_sizeY;
+}
