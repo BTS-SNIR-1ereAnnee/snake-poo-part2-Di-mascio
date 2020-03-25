@@ -1,82 +1,76 @@
 #include "Board.h"
 #include <stdlib.h>
 #include <iostream>
+
 using namespace std;
 
 
 // Initialisation du singleton à NULL
 Board *Board::_singleton = NULL;
 
-Board::Board()
-{
-    m_sizeX = 30;
-    m_sizeY = 20;
-}
 
 Board *Board::getInstance ()
-{
-  if (NULL == _singleton)
   {
-      _singleton =  new Board;
+    if (NULL == _singleton)
+      {
+        _singleton =  new Board;
+      }
+
+    return _singleton;
   }
 
-  return _singleton;
-}
-
-void Board::kill ()
-{
-  if (NULL != _singleton)
+  void Board::kill ()
   {
-    delete _singleton;
-    _singleton = NULL;
+    if (NULL != _singleton)
+    {
+        delete _singleton;
+        _singleton = NULL;
+      }
   }
-}
 
 
 Board::Board()
 {
-  initscr();
-  clear();
+    initscr();
+    clear();
 
-  this->dessinerPlateau();
+    this->dessinerPlateau();
 }
 
 Board::~Board()
 {
-  endwin();//RAZ du curseur
-  cout<<"Destruction du plateau"<<endl;
+    endwin();//RAZ du curseur
+    cout<<"Game Over"<<endl;
 }
 
 void Board::dessinerPlateau()
 {
-  this->m_boite = subwin(stdscr, 20, 30, 0, 0);
+    m_sizeX = 30;
+    m_sizeY = 20;
+    this->m_boite = subwin(stdscr, m_sizeY, m_sizeX, 0, 0);
 
-  box(this->m_boite, ACS_VLINE, ACS_HLINE); // ACS_VLINE et ACS_HLINE sont des constantes qui génèrent des bordures par défaut
-  wrefresh(m_boite);
+    box(this->m_boite, ACS_VLINE, ACS_HLINE); // ACS_VLINE et ACS_HLINE sont des constantes qui génèrent des bordures par défaut
+    wrefresh(m_boite);
 }
 
 
-void Board::dessinerPoint(Point &p)
-{
-  wmove(m_boite, p.getY(), p.getX());
-  waddch(m_boite,'*');
-  wrefresh(m_boite);
+void Board::dessinerPoint(Point &p){
+    wmove(m_boite, p.getY(), p.getX());
+    waddch(m_boite, p.getChar());
+    wrefresh(m_boite);
 
 }
 
-void Board::effacerPoint(Point &p)
-{
-  wmove(m_boite, p.getY(), p.getX());
-  waddch(m_boite,' ');
-  wrefresh(m_boite);
+void Board::effacerPoint(Point &p){
+    wmove(m_boite, p.getY(), p.getX());
+    waddch(m_boite,' ');
+    wrefresh(m_boite);
+
 }
 
-int Board::getSizeX()
-{
-  return m_sizeX;
+int Board::getXSize(){
+    return m_sizeX;
 }
-
-intBoard::getSizeY()
-{
-  return m_sizeY;
+int Board::getYSize(){
+    return m_sizeY;
 }

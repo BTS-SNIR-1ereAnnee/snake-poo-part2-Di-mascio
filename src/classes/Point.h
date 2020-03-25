@@ -6,6 +6,9 @@ classe permettant l'affichage d'un point
 #define POINT_H
 
 #include "Board.h"
+
+
+
 class Board;
 class Point
 {
@@ -14,6 +17,7 @@ public:
     Point();
     /** Constructeur */
     Point(int x, int y);
+    Point(int x, int y, char carac);
 
     /** Default destructor */
     virtual ~Point();
@@ -53,6 +57,10 @@ public:
      */
     void setY(int val);
 
+    char getChar();
+
+    void setChar(char value);
+
     /**
     *   dessine le point
     */
@@ -70,6 +78,12 @@ protected:
 private:
     int m_x; //!< Member variable "m_x"
     int m_y; //!< Member variable "m_y"
+    char m_char;
 };
+
+namespace std
+{
+    bool operator==(Point const& a, Point const& b);
+}
 
 #endif // POINT_H
